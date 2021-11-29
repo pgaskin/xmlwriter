@@ -151,6 +151,20 @@ func TestWriter(t *testing.T) {
 			`),
 		},
 		{
+			Name: "XMLNS",
+			Do: func(x *XMLWriter) {
+				x.Indent("\t")
+				x.DefaultProcInst()
+				x.Start(nil, "root", BoundNS{})
+				x.Attr(NamespaceXML, "lang", "en")
+				x.End(true)
+			},
+			Out: out(`
+				<?xml version="1.0" encoding="UTF-8"?>
+				<root xml:lang="en"/>
+			`),
+		},
+		{
 			Name: "NoElementEnd",
 			Do: func(x *XMLWriter) {
 				x.Indent("\t")

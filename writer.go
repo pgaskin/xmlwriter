@@ -13,6 +13,9 @@ import (
 	"strings"
 )
 
+// NamespaceXML is the built-in namespace bound to the xml prefix.
+const NamespaceXML NS = "http://www.w3.org/XML/1998/namespace"
+
 // NamespaceMatcher represents the desired namespace for an element or
 // attribute.
 type NamespaceMatcher interface {
@@ -129,7 +132,10 @@ func (x *XMLWriter) Start(ns NamespaceMatcher, name string, define ...BoundNS) e
 	if s != nil {
 		nss = append(s.Namespaces, define...)
 	} else {
-		nss = define
+		nss = append([]BoundNS{{
+			URI:    NamespaceXML,
+			Prefix: "xml",
+		}}, define...)
 	}
 	rns, err := resolveElementNS(ns, nss)
 	if err != nil {
