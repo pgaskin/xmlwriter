@@ -82,7 +82,7 @@ func ExampleNew_xhtml() {
 	}
 	x.End(false)
 
-	if err := x.Err(); err != nil {
+	if err := x.Close(); err != nil {
 		fmt.Fprintf(os.Stderr, "\nError: %v\n", err)
 		os.Exit(1)
 	}
