@@ -397,6 +397,40 @@ func TestWriter(t *testing.T) {
 			`),
 		},
 		{
+			Name: "EndAuto",
+			Do: func(x *XMLWriter) {
+				x.Start(nil, "no", BoundNS{})
+				x.Start(nil, "yes")
+				x.EndAuto()
+				x.Start(nil, "yes")
+				x.Attr(nil, "test", "test")
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.BlankLine()
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.Text(false, "test")
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.Comment(false, "test")
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.ProcInst("test", "test")
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.Directive([]byte("test"))
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.Text(false, "")
+				x.EndAuto()
+				x.Start(nil, "no")
+				x.Raw([]byte("test"))
+				x.EndAuto()
+				x.EndAuto()
+			},
+			Out: `<no><yes/><yes test="test"/><no></no><no>test</no><no><!--test--></no><no><?test test?></no><no><!test></no><no></no><no>test</no></no>`,
+		},
+		{
 			Name: "DirectiveInElement",
 			Do: func(x *XMLWriter) {
 				x.Indent("\t")

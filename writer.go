@@ -272,6 +272,13 @@ func (x *XMLWriter) Raw(xml []byte) error {
 	return x.e
 }
 
+// EndAuto is like End, but automatically chooses whether to use a self-closing
+// end tag.
+func (x *XMLWriter) EndAuto() error {
+	s := x.cur()
+	return x.End(s != nil && !s.HasChildren)
+}
+
 // End ends the current tag. If self is true, a self-closing tag is written and
 // an error is returned if the element has children. If indentation is enabled,
 // self is false, the current element contains children and its last child was
