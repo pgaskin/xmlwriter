@@ -23,7 +23,7 @@ func ExampleNew_xhtml() {
 
 	x.DefaultProcInst()
 	x.Directive([]byte("DOCTYPE html"))
-	x.Start(xhtml, "html", BoundNS{xhtml, ""})
+	x.Start(xhtml, "html", xhtml.Bind(""))
 	{
 		x.Start(xhtml, "head")
 		{
@@ -62,7 +62,7 @@ func ExampleNew_xhtml() {
 		}
 		x.BlankLine()
 		{
-			x.Start(svg, "svg", BoundNS{svg, ""}, BoundNS{xlink, "xlink"})
+			x.Start(svg, "svg", svg.Bind(""), xlink.Bind("xlink"))
 			x.Attr(svg, "viewBox", "0 0 20 20")
 			{
 				x.Start(svg, "a")
