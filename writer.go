@@ -26,6 +26,11 @@ type NamespaceMatcher interface {
 // NS is a namespace URI. An empty URI is the empty namespace.
 type NS string
 
+// Bind is a convenience function to create a BoundNS.
+func (n NS) Bind(p Prefix) BoundNS {
+	return BoundNS{URI: n, Prefix: p}
+}
+
 func (n NS) uri() (NS, bool) {
 	return n, true
 }
@@ -36,6 +41,11 @@ func (n NS) prefix() (Prefix, bool) {
 
 // Prefix is a namespace prefix. An empty prefix is the default namespace.
 type Prefix string
+
+// Bind is a convenience function to create a BoundNS.
+func (p Prefix) Bind(n NS) BoundNS {
+	return BoundNS{URI: n, Prefix: p}
+}
 
 func (p Prefix) uri() (NS, bool) {
 	return "", false
